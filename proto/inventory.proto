@@ -1,11 +1,11 @@
 syntax = "proto3";
 
-package inventory;
+service InventoryService {
+    rpc SearchAllProducts(Empty) returns (ProductsResponse) {}
+}
 
-// Mensagem vazia usada em SearchAllProducts
-message Empty {}
+message Empty{}
 
-// Tipo de retorno para listar todos os produtos
 message ProductResponse {
     int32 id = 1;
     string name = 2;
@@ -17,17 +17,4 @@ message ProductResponse {
 
 message ProductsResponse {
     repeated ProductResponse products = 1;
-}
-
-// Nova mensagem de payload contendo só o ID
-message Payload {
-    int32 id = 1;
-}
-
-service InventoryService {
-    // Método já existente
-    rpc SearchAllProducts(Empty) returns (ProductsResponse) {}
-
-    // NOVO: busca produto por ID
-    rpc SearchProductByID(Payload) returns (ProductResponse) {}
 }
